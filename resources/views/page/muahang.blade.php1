@@ -1,0 +1,261 @@
+@extends('master')
+@section('title', 'Đặt hàng')
+@section('content')
+<div class="container" style="max-width:800px;margin: auto; background: #f0f0f0; min-height: 500px;">
+	<div class="row">
+		<div class="col-md-6 col-sm-6 col-xs-6">
+			<span style="color: #288ad6" id="back">Trở về</span>
+		</div>
+		
+	</div>
+	<div class="content" style="background: white; margin: 10px; box-shadow: 0px 1px 14px;padding:10px 20px 10px 20px;">
+		<div class="row" >
+			<div class="col-md-2">
+				<img src="{{asset('images/Sim.jpg')}}" width="50px;">
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						Sim: <span style="color: #288ad6"><strong>{{$row->number}}</strong>: <span style="color: red; font-weight: bold;">{{number_format($row->price)}} ₫</span> </span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<?php $gia="";
+						if($cat->price_sale!=0){
+							$gia = $cat->price_sale;
+						}else{
+							$gia = $cat->price;
+						}
+						?>
+						<span>Gói cước: 
+							<span style="color: #288ad6"><strong>{{$cat->name}}</strong>: <span style="color: red; font-weight: bold;">{{number_format($gia)}} ₫</span></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="row">
+					
+				</div>
+				<div class="row">
+					
+					
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div  style="padding: 5px; background: #f0f0f0">
+			<p style="font-weight: bold;">THÔNG TIN GÓI CƯỚC</p>
+			<p style="font-weight: bold; color: #288ad6">{{$cat->name}}</p>
+			<p><i class="fas fa-circle dot"></i> {{$cat->minutecall}}</p>
+			<p><i class="fas fa-circle dot"></i> {{$cat->datadetail}}</p>
+			<p><i class="fas fa-circle dot"></i> Cú pháp: {{$cat->cuphap}}</p>
+			<p><i class="fas fa-circle dot"></i> Phí gói: {{$cat->phigoi}}</p>
+			<p><i class="fas fa-circle dot"></i> Chú thích: {!!$cat->chuthich!!}</p>
+		</div>
+		<hr>
+		<div class="" style="padding: 5px;">
+			<p style="font-weight: bold;">THỦ TỤC ĐĂNG KÝ SIM:</p>
+			<p>
+				1. BẢN GỐC CMND (cấp dưới 15 năm) hoặc Căn cước công dân (còn thời hạn) hoặc Hộ chiếu (còn thời hạn) của chủ thuê bao.
+			</p>
+			<p>
+				2. Ảnh chân dung của chủ thuê bao tại thời điểm giao dịch.
+			</p>
+		</div>
+		<hr>
+		<div class="row" style="margin: 0px; padding: 5px;">
+			<div class="col-md-6 col-sm-6 col-xs-6 ">
+				<p>Phí giao hàng</p>
+				<p style="font-weight: bold;">Cần thành toán</p>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
+				<p>+ {{number_format($ship->ship)}}<sup>đ</sup></p>
+				<strong><p style="color: red">{{number_format($row->price+$ship->ship+$gia)}}<sup>đ</sup></p></strong>
+			</div>
+		</div>
+		<hr>
+		<form id="registrationForm" method="POST" enctype="multipart/form-data">
+			<div class="row" style="margin: 0px; padding: 5px;">
+				
+				{{csrf_field()}}
+				<input type="hidden" name="productid" value="{{$row->id}}">
+				<input type="hidden" name="state" value="{{$row->stateid}}">
+				<input type="hidden" name="price" value="{{$row->price}}">
+				<input type="hidden" name="number" value="{{$row->number}}">
+				<input type="hidden" name="pricecat" value="{{$gia}}">
+				<input type="hidden" name="ship" value="{{$ship->ship}}">
+				<div id="male_female">
+					<span>
+						<input type="radio" id="male_f" name="male_f" value="1" checked="checked" >
+						<label for="">Anh</label>
+					</span>
+					<span style="margin-left: 20px;">
+						<input type="radio" id="male_f2" name="male_f" value="2">
+						<label for="">Chị</label>
+					</span>
+					<!--//giới tính-->
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="fullname" placeholder="Nhập họ và tên bạn (Bắt buộc)" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại của bạn (Bắt buộc)" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="cmnd" placeholder="Số CMND/Hộ chiếu đăng ký sim (Bắt buộc)" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="email" placeholder="Nhập Email của bạn (Bắt buộc)" />
+				</div>
+				<h5  style="margin-top: 20px;"><strong>Để được phục vụ nhanh hơn, </strong> hãy chọn thêm:</h5>
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#home">Địa chỉ giao hàng</a></li>
+					<li><a data-toggle="tab" href="#menu1">Nhận tại siêu thị</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div id="home" class="tab-pane fade in active">
+						<div class="row" style="margin-top: 20px;">
+							<div class="col-md-6 col-sm-6 col-xs-6" >
+								<input type="text" class="form-control" placeholder="Tỉnh, thành" name="tinh" >
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="form-control" placeholder="Quận, huyện" name="quan" >
+							</div>
+						</div>
+						<div class="row" style="margin-top: 10px;">
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<input type="text" class="form-control" placeholder="Phường, xã" name="phuong">
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<input  type="text" class="form-control" placeholder="Số nhà, tên đường" name="sonha">
+							</div>
+						</div>
+
+						<div class="row" style="margin-top: 20px;">
+							<p style="padding-left: 20px;">Thời gian giao hàng</p>
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<input onchange="zzzzzzzz(this.value)"  id="shipdate" type="date" name="shipdate" class="form-control" value="Chọn ngày giao hàng">
+								<div style="color:red;" id="error"></div>
+							</div>
+							
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<select name="shiptime" id="" class="form-control">
+									<option value="18">Trước 18 giờ</option>
+									<option value="19">Trước 19 giờ</option>
+									<option value="20">Trước 20 giờ</option>
+									<option value="21">Trước 21 giờ</option>
+									<option value="22">Trước 22 giờ</option>
+								</select>
+							</div>
+							
+						</div>
+
+
+					</div>
+					<div id="menu1" class="tab-pane fade">
+						<div class="row" style="margin-top: 20px;padding-left: 20px;padding-right: 20px;">
+							Nhận mua tại siêu thị
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<button  type="submit" class="btnmua"><strong>ĐẶT MUA</strong></button>
+			</div>
+		</form>
+	</div>
+</div><!-- content -->
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('#registrationForm').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+        	valid: 'glyphicon glyphicon-ok',
+        	invalid: 'glyphicon glyphicon-remove',
+        	validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	fullname: {
+        		message: 'The username is not valid',
+        		validators: {
+        			notEmpty: {
+        				message: 'Họ tên không được bỏ trống'
+        			}
+        		}
+        	},
+        	phone: {
+        		validators: {
+        			notEmpty: {
+        				message: 'Số điện thoại không được bỏ trống'
+        			},
+        			numberic:{
+        				message: 'Số điện thoại không hợp lệ'
+        			},
+        			stringLength: {
+        				min: 9,
+        				max: 12,
+        				message: 'Số điện thoại không hợp lệ'
+        			},
+        			regexp: {
+        				regexp: /^[Z0-9_]+$/,
+        				message: 'Số sim phải là số'
+        			}
+
+        		}
+        	},
+        	cmnd: {
+        		validators: {
+        			notEmpty: {
+        				message: 'Số CMND không được bỏ trống'
+        			}
+        		},
+        		stringLength: {
+        			min: 9,
+        			max: 17,
+        			message: 'Số CMND không hợp lệ'
+        		}
+        	},
+        	email: {
+        		validators: {
+        			notEmpty: {
+        				message: 'Email không được bỏ trống'
+        			},
+        			emailAddress:{
+        				message: 'Email phải có phần @'
+        			}
+        		}
+        	}
+        }
+    });
+	});
+</script>
+<script>
+	function zzzzzzzz(a){
+		/*var a = getElementsById('shipdate').value();*/
+
+		var today = new Date();
+    	var dd = today.getDate();
+    	var mm = today.getMonth()+1;
+    	var yyyy = today.getFullYear();
+    	if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+    	today = yyyy+""+mm+""+dd;
+    	var nam = a.substr(0,4);
+    	var thang = a.substr(5,2);
+    	var ngay = a.substr(8,2);
+    	var ngaychon = nam+thang+ngay;
+    	document.getElementById("error").innerHTML ="";
+    	if(ngaychon<today){
+    		document.getElementById("shipdate").value ="";
+    		document.getElementById("error").innerHTML =  "Ngày giao hàng không hợp lệ";
+    	}
+		 
+	}
+
+</script>
+@endsection

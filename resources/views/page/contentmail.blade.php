@@ -1,0 +1,1 @@
+<strong>{{$email}}</strong> vừa đăng ký nhận thông báo từ bạn.

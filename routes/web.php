@@ -1,0 +1,153 @@
+<?php
+
+Route::get('/',['as'=>'trangchu','uses'=>'pageController@getIndex']);
+Route::post('ketquatimkiem',['as'=>'postketquatimkiem','uses'=>'pageController@ketquatimkiem']);
+Route::get('san-pham/{slug}',['as'=>'getsanpham','uses'=>'SanphamController@getIndex']);
+Route::get('ajax',['as'=>'proajax','uses'=>'SanphamController@ajax']);
+Route::get('proajax',['as'=>'proajaxsearch','uses'=>'SanphamController@proajaxsearch']);
+Route::get('ajaxcheck',['as'=>'ajaxcheck','uses'=>'SanphamController@ajaxcheck']);
+Route::get('ajaxchecksp',['as'=>'ajaxchecksp','uses'=>'SanphamController@ajaxchecksp']);
+Route::get('proajaxprice',['as'=>'proajaxprice','uses'=>'SanphamController@proajaxprice']);
+Route::get('ajaxcheckspsearch',['as'=>'ajaxcheckspsearch','uses'=>'SanphamController@ajaxcheckspsearch']);
+Route::get('proajaxsearchprice',['as'=>'proajaxsearchprice','uses'=>'SanphamController@proajaxsearchprice']);
+Route::get('san-pham',['as'=>'san-pham','uses'=>'SanphamController@sanpham']);
+Route::get('mua-hang/{id}',['as'=>'muahang','uses'=>'SanphamController@getmuahang']);
+Route::post('mua-hang/{id}',['as'=>'postmuahang','uses'=>'SanphamController@postDatHang']);
+Route::post('register_mail',['as'=>'register_mail','uses'=>'register_mail@register_mail']);
+Route::post('san-pham/search',['as'=>'postsearch','uses'=>'SanphamController@postsearch']);
+Route::group(['prefix'=>'login','middleware'=>'CheckLogin'],function(){
+	Route::get('/',['as'=>'getlogin','uses'=>'backend\LoginController@getlogin']);
+	Route::post('/',['as'=>'postlogin','uses'=>'backend\LoginController@postlogin']);
+});
+Route::get('quanhuyen',['as'=>'quanhuyen','uses'=>'SanphamController@dataquanhuyen']);
+Route::get('listquanhuyen',['as'=>'quanhuyen','uses'=>'SanphamController@listquanhuyen']);
+Route::get('tinhthanh',['as'=>'tinhthanh','uses'=>'SanphamController@tinhthanh']);
+Route::get('listphuongxa',['as'=>'phuongxa','uses'=>'SanphamController@listphuongxa']);
+Route::get('phuongxa',['as'=>'phuongxa','uses'=>'SanphamController@dataphuongxa']);
+
+Route::group(['prefix'=>'admin','middleware'=>'CheckAdmin'],function(){
+	Route::get('/',['as'=>'getdashboard','uses'=>'backend\DashboardController@index']);
+	Route::get('/logout',['as'=>'getlogout','uses'=>'backend\DashboardController@getlogout']);
+	Route::group(['prefix'=>'order'],function(){
+		Route::get('/',['as'=>'getorder','uses'=>'backend\OrderController@index']);
+		Route::get('/ship',['as'=>'getship','uses'=>'backend\OrderController@ship']);
+		Route::get('/pay',['as'=>'getorderpay','uses'=>'backend\OrderController@pay']);
+		Route::get('/fail',['as'=>'getorderfail','uses'=>'backend\OrderController@fail']);
+		Route::get('/detail/{id}',['as'=>'getorderdetail','uses'=>'backend\OrderController@detail']);
+		Route::post('/detail/{id}',['as'=>'postorderdetail','uses'=>'backend\OrderController@postdetail']);
+		Route::get('/confirm/{id}',['as'=>'getconfirm','uses'=>'backend\OrderController@confirm']);
+		Route::get('/cancel/{id}',['as'=>'getcancel','uses'=>'backend\OrderController@cancel']);
+		Route::get('/delete/{id}',['as'=>'getdelete','uses'=>'backend\OrderController@delete']);
+		Route::get('/deleteback/{id}',['as'=>'deleteback','uses'=>'backend\OrderController@deleteback']);
+		Route::get('/money/{id}',['as'=>'getrestore','uses'=>'backend\OrderController@money']);
+		Route::get('/deleteallship',['as'=>'deleteallship','uses'=>'backend\OrderController@deleteallship']);
+		Route::get('/successallship',['as'=>'successallship','uses'=>'backend\OrderController@successallship']);
+		Route::get('/deleteallpay',['as'=>'deleteallpay','uses'=>'backend\OrderController@deleteallpay']);
+		Route::get('/deleteallfail',['as'=>'deleteallfail','uses'=>'backend\OrderController@deleteallfail']);
+});
+Route::group(['prefix'=>'product'],function(){
+		Route::get('/',['as'=>'getproduct','uses'=>'backend\ProductController@index']);
+		Route::get('/insert',['as'=>'getinsertproduct','uses'=>'backend\ProductController@getinsert']);
+		Route::post('/insert',['as'=>'postinsertproduct','uses'=>'backend\ProductController@postinsert']);
+		/*view*/
+		Route::get('/shipping',['as'=>'getshippingproduct','uses'=>'backend\ProductController@shipping']);
+		Route::get('/update/{id}',['as'=>'getupdateproduct','uses'=>'backend\ProductController@getupdate']);
+		Route::post('/update/{id}',['as'=>'postupdateproduct','uses'=>'backend\ProductController@postupdate']);
+		/*chức năng*/
+		Route::get('/state/{id}',['as'=>'getstateproduct','uses'=>'backend\ProductController@state']);
+		Route::get('/delete/{id}',['as'=>'getdeleteproduct','uses'=>'backend\ProductController@delete']);
+		Route::get('/deleteall',['as'=>'deldeldel','uses'=>'backend\ProductController@deleteall']);
+		Route::get('/deleteallship',['as'=>'getdeleteproduct','uses'=>'backend\ProductController@deleteallship']);
+		Route::post('/import_excel',['as'=>'postimport-excel','uses'=>'backend\ProductController@import_excel']);
+		
+});
+
+Route::group(['prefix'=>'nhamang'],function(){
+		Route::get('/',['as'=>'getnhamang','uses'=>'backend\NhamangController@index']);
+		Route::post('/postinsert',['as'=>'postinsertnhamang','uses'=>'backend\NhamangController@postinsert']);
+		Route::get('/update/{id}',['as'=>'getupdatenhamang','uses'=>'backend\NhamangController@getupdate']);
+		Route::post('/update/{id}',['as'=>'postupdatenhamang','uses'=>'backend\NhamangController@postupdate']);
+		Route::get('/delete/{id}',['as'=>'getdeletenhamang','uses'=>'backend\NhamangController@delete']);
+		Route::get('/deleteall',['as'=>'getdeleteallnhamang','uses'=>'backend\NhamangController@deleteall']);	
+});
+Route::group(['prefix'=>'title'],function(){
+		Route::get('/',['as'=>'gettitle','uses'=>'backend\TitleController@index']);
+		Route::post('/postinsert',['as'=>'postinserttitle','uses'=>'backend\TitleController@postinsert']);
+		Route::get('/update/{id}',['as'=>'getupdatetitle','uses'=>'backend\TitleController@getupdate']);
+		Route::post('/update/{id}',['as'=>'postupdatetitle','uses'=>'backend\TitleController@postupdate']);
+		Route::get('/delete/{id}',['as'=>'getdeletetitle','uses'=>'backend\TitleController@delete']);
+		Route::get('/deleteall',['as'=>'getdeletealltitle','uses'=>'backend\TitleController@deleteall']);	
+});
+Route::group(['prefix'=>'category'],function(){
+		Route::get('/',['as'=>'getcategory','uses'=>'backend\CategoryController@index']);
+		Route::get('/insert',['as'=>'getinsertcategory','uses'=>'backend\CategoryController@getinsert']);
+		Route::post('/insert',['as'=>'postinsertcategory','uses'=>'backend\CategoryController@postinsert']);
+		Route::get('/update/{id}',['as'=>'getupdatecategory','uses'=>'backend\CategoryController@getupdate']);
+		Route::post('/update/{id}',['as'=>'postupdatecategory','uses'=>'backend\CategoryController@postupdate']);
+		Route::get('/delete/{id}',['as'=>'getdeletecategory','uses'=>'backend\CategoryController@delete']);
+		Route::post('/import_excel',['as'=>'import_category','uses'=>'backend\CategoryController@import_excel']);		
+});
+
+Route::group(['prefix'=>'simstyle'],function(){
+		Route::get('/',['as'=>'getsimstyle','uses'=>'backend\SimstyleController@index']);
+		Route::post('/postinsert',['as'=>'postinsertsimstyle','uses'=>'backend\SimstyleController@postinsert']);
+		Route::get('/update/{id}',['as'=>'getupdatesimstyle','uses'=>'backend\SimstyleController@getupdate']);
+		Route::post('/update/{id}',['as'=>'postupdatesimstyle','uses'=>'backend\SimstyleController@postupdate']);
+		Route::get('/delete/{id}',['as'=>'getdeletesimstyle','uses'=>'backend\SimstyleController@delete']);
+		Route::get('/deleteall',['as'=>'getdeleteallsimstyle','uses'=>'backend\SimstyleController@deleteall']);
+});
+
+Route::group(['prefix'=>'infor_customer'],function(){
+		Route::get('/',['as'=>'getinfor_customer','uses'=>'backend\InforCustomer@index']);
+		Route::get('/detail/{id}',['as'=>'getdetailinfor_customer','uses'=>'backend\InforCustomer@detail']);
+		Route::get('/deleteall',['as'=>'deldeldel','uses'=>'backend\InforCustomer@deleteall']);
+		Route::get('/delete/{id}',['as'=>'getdeleteproduct','uses'=>'backend\InforCustomer@delete']);
+});
+
+Route::group(['prefix'=>'menu'],function(){
+		Route::get('/',['as'=>'getmenu','uses'=>'backend\Menuu@index']);
+		Route::get('/insert',['as'=>'getinsertmenu','uses'=>'backend\Menuu@getinsert']);
+		Route::post('/insert',['as'=>'postinsertmenu','uses'=>'backend\Menuu@postinsert']);
+		Route::get('/update/{id}',['as'=>'getupdatemenu','uses'=>'backend\Menuu@getupdate']);
+		Route::post('/update/{id}',['as'=>'postupdatemenu','uses'=>'backend\Menuu@postupdate']);
+		Route::get('/deleteall',['as'=>'deldeldel','uses'=>'backend\Menuu@deleteall']);
+		Route::get('/delete/{id}',['as'=>'getdeleteproduct','uses'=>'backend\Menuu@delete']);
+});
+
+Route::group(['prefix'=>'footer'],function(){
+		Route::get('/dichvu',['as'=>'getdichvu','uses'=>'backend\TemplateController@dichvu']);
+		Route::get('/dichvu/insert',['as'=>'getinsertdichvu','uses'=>'backend\TemplateController@getinsertdichvu']);
+		Route::post('/dichvu/insert',['as'=>'postinsertdichvu','uses'=>'backend\TemplateController@postinsertdichvu']);
+		Route::get('/dichvu/update/{id}',['as'=>'getupdatedichvu','uses'=>'backend\TemplateController@getupdatedichvu']);
+		Route::post('/dichvu/update/{id}',['as'=>'postupdatedichvu','uses'=>'backend\TemplateController@postupdatedichvu']);
+		Route::get('/dichvu/delete/{id}',['as'=>'getdeletedichvu','uses'=>'backend\TemplateController@getdeletedichvu']);
+		Route::get('/dichvu/deleteall',['as'=>'getdeletealldichvu','uses'=>'backend\TemplateController@getdeletealldichvu']);
+
+		Route::get('/info',['as'=>'getinfoo','uses'=>'backend\TemplateController@info']);
+		Route::get('/info/insert',['as'=>'getinsertinfo','uses'=>'backend\TemplateController@getinsertinfo']);
+		Route::post('/info/insert',['as'=>'postinsertinfo','uses'=>'backend\TemplateController@postinsertinfo']);
+		Route::get('/info/update/{id}',['as'=>'getupdateinfo','uses'=>'backend\TemplateController@getupdateinfo']);
+		Route::post('/info/update/{id}',['as'=>'postupdateinfo','uses'=>'backend\TemplateController@postupdateinfo']);
+		Route::get('/info/delete/{id}',['as'=>'getdeleteinfo','uses'=>'backend\TemplateController@getdeleteinfo']);
+		Route::get('/info/deleteall',['as'=>'getdeleteallinfo','uses'=>'backend\TemplateController@getdeleteallinfo']);
+});
+Route::group(['prefix'=>'user'],function(){
+		Route::get('/update/{id}',['as'=>'getupdateuser','uses'=>'backend\UserController@update']);
+		Route::post('/update/{id}',['as'=>'postupdateuser','uses'=>'backend\UserController@postupdate']);
+});
+Route::group(['prefix'=>'seo'],function(){
+		Route::get('/',['as'=>'seo','uses'=>'backend\DashboardController@seo']);
+		Route::post('/updateseo',['as'=>'updateseo','uses'=>'backend\DashboardController@updateseo']);	
+});
+Route::get('/export',['as'=>'getexportthongke','uses'=>'backend\DashboardController@getexportthongke']);
+Route::get('/thongke/{slug}',['as'=>'thongke','uses'=>'backend\DashboardController@thongke']);
+Route::get('/dumama',['as'=>'deleteallll','uses'=>'backend\DashboardController@deleteall']);
+Route::get('/thongke/export/{date}',['as'=>'getexport','uses'=>'backend\DashboardController@export']);
+Route::get('/thongke/deletedate/{date}',['as'=>'deletedate','uses'=>'backend\DashboardController@deletedate']);
+Route::get('/logo',['as'=>'getlogo','uses'=>'backend\OtherController@getlogo']);
+Route::get('/insert',['as'=>'getpriceship','uses'=>'backend\OtherController@getpriceship']);
+Route::post('/postlogo',['as'=>'postlogo','uses'=>'backend\OtherController@postlogo']);
+Route::post('/postpriceship',['as'=>'postpriceship','uses'=>'backend\OtherController@postpriceship']);
+});
+Route::get('{slug}',['as'=>'getdetail','uses'=>'pageController@getdetail']);
+

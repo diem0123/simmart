@@ -1,0 +1,104 @@
+.container .items {height: auto;border: 1px solid #dadada;padding: 0px;margin-top:15px;}
+.items .image {width: 20%;height: 100%;float: left;}
+.items .info {margin-left: 5px;}
+.info_s{height: auto;text-align: center;padding: 0px;}
+.mua{margin-top: 10px;margin-bottom: 15px;}
+@media screen and (max-width: 1000px){.mua{margin-top: 0px;}.items{padding-bottom: 15px;}}
+.mua a{padding: 5px;border:1px solid #288ad6;text-decoration: none;border-radius:5px;color:#288ad6;}
+.mua a:hover{text-decoration: none;background: #288ad6;color:white;}
+.sale{margin-left: 18px;margin-top: 6px;}
+.price{float: left; width: 29%; height: 50px;}
+.km{margin-left: 18px; margin-top: 6px;}
+.dot{font-size: 5px;}
+#back:hover{cursor: pointer;}
+.scrollbar {  height: 350px;width: 100%;overflow: auto;padding-right: 10px;}
+.force-overflow {min-height: 30px;}
+#style-1::-webkit-scrollbar { width: 6px;background-color: red;}
+#style-1::-webkit-scrollbar-thumb {background-color: black;border-radius: 2px;}
+#style-1::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: white;}
+  .scrollbar2 {  height: 450px;width: 100%;overflow: auto;padding-right: 12px;}
+  .force-overflow {min-height: 30px;}
+  .content-main{border: 1px solid #eeeeee;border-radius: 5px;}
+  .content-main:hover{box-shadow: 1px 1px 3px 3px  #d5d5d5;}
+  .ku{border-top: 1px solid #cecece;border-bottom: 1px solid #cecece;padding-top:10px;padding-bottom: 10px;}
+  .kiu:hover{background: #dcdcdc;}
+  .contentt{margin-top: 10px;}
+  .ex{border:1px solid #eeeeee;width: 100%;margin-top: 10px;padding-left: 10px;padding-top: 10px;display:none;}
+  .btn-custom{padding: 5px 10px 5px 10px;background-color: rgba(0,0,0,0.5);border-radius: 4px;color:white;}
+  .btn-custom:hover{background-color: rgba(255,255,255,0.5);color:black;}
+  .body-res{border:1px solid #eeeeee;border-radius: 8px;}
+  .title-res{text-align: center;background-color: #52b2b1;padding-top: 5px;padding-bottom: 5px;color:white;border-radius: 8px 8px 0px 0px;}
+  .content-res{padding: 10px;font-size: 0.8em;}
+  .votenum{margin-top: 15px;}
+  .votenum a{padding: 10px 10px 10px 10px;border:1px solid #288ad6;color:#288ad6;border-radius: 6px;text-decoration: none;}
+  .votenum a:hover{background-color: rgba(40,138,214,0.6);color:white;text-decoration: none;}
+  .btnmua{width: 100%;margin-top: 20px;padding-top: 10px;padding-bottom: 10px;background: rgba(247,133,14,0.9);border-radius: 8px;color:white;
+  }
+  .btnmua:hover{background: rgba(247,133,14,0.7);}
+  #back-to-top {position: fixed;bottom: 40px;right: 40px;z-index: 9999;width: 32px;height: 32px;text-align: center;line-height: 30px;background: black;
+    color: white;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+    border-radius: 50%;
+  }
+  #back-to-top:hover {background: white;color:black;}
+  #back-to-top.show {opacity: 1;}
+  .title_res{width:100%;background: red;border-radius: 15px 15px 0px 0px;}
+  .content_res{font-size: 0.8em;padding: 10px;border:1px solid #eeeeee;border-top: none;border-radius:  0px 0px 5px 5px;}
+
+  footer{margin-top: 40px;background: #161616;color:white;padding-top: 10px;padding-bottom: 20px;}
+  .send{width: 100%;border-radius: 20px;background: #454545;border:none;padding-top:8px;padding-bottom: 8px;padding-left: 15px;margin-top: 10px; }
+  .btnsend{padding:10px 25px 10px 25px;background: #ffc222;border-radius: 20px;border:none;margin-top: 10px;}
+  .btnsend:hover{background: #ffd76f;}
+  .dmm{background: rgba(255,255,255);padding: 0px 10px 10px 10px;border-radius: 0px 0px 10px 10px;border:1px solid #eeeeee;color:black;font-size: 0.9em;min-width: 600px;min-height: 200px;position: absolute;display: none;z-index: 10;
+  }
+  .dmm a{ display: block;padding:5px 0px 5px 15px;}
+  .dmm a:hover{background: rgba(0,0,0,0.1);color:black;text-decoration: none;}
+
+  .cat:hover .dmm{
+    display: block;
+  }
+
+
+  .dmm h5{
+    padding-bottom: 5px;
+
+  }
+  .sub_res{
+    max-height: 2000px;
+    margin-top: 5px;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    background: white;
+    border-radius: 0px 0px 15px 15px;
+
+  }
+
+  .sub_res a{
+    color:black;
+    display: block;
+    padding: 10px 0px 10px 10px;
+    border-bottom: 1px dotted #eeeeee;
+
+  }
+  .sub_res a:last-child{
+    border-bottom: none;
+  }
+
+  .sub_res a:hover{
+   background: rgba(255,253,103,1);
+
+   text-decoration: none;
+
+ }
+ .sub_res img{
+  width: 30px;
+  height: 30px;
+}
